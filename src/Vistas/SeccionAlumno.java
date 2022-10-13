@@ -43,19 +43,24 @@ public class SeccionAlumno extends javax.swing.JFrame {
         jmiListadoAxM = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("UNIVERSIDAD");
+        setBackground(new java.awt.Color(0, 153, 102));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(700, 800));
 
         escritorio.setBackground(new java.awt.Color(0, 153, 102));
         escritorio.setForeground(new java.awt.Color(51, 255, 204));
+        escritorio.setPreferredSize(new java.awt.Dimension(700, 500));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         jmArchivo.setForeground(new java.awt.Color(0, 153, 102));
@@ -82,6 +87,11 @@ public class SeccionAlumno extends javax.swing.JFrame {
         jmiFormMaterias.setFont(new java.awt.Font("Calisto MT", 1, 12)); // NOI18N
         jmiFormMaterias.setForeground(new java.awt.Color(0, 153, 153));
         jmiFormMaterias.setText("Formulario de Materias");
+        jmiFormMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiFormMateriasActionPerformed(evt);
+            }
+        });
         jmMaterias.add(jmiFormMaterias);
 
         jMenuBar1.add(jmMaterias);
@@ -130,6 +140,11 @@ public class SeccionAlumno extends javax.swing.JFrame {
         jmiManNotas.setFont(new java.awt.Font("Calisto MT", 1, 12)); // NOI18N
         jmiManNotas.setForeground(new java.awt.Color(0, 153, 153));
         jmiManNotas.setText("Manipulacion de Notas");
+        jmiManNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiManNotasActionPerformed(evt);
+            }
+        });
         jmNotas.add(jmiManNotas);
 
         jMenuBar1.add(jmNotas);
@@ -141,6 +156,11 @@ public class SeccionAlumno extends javax.swing.JFrame {
         jmiListadoAxM.setFont(new java.awt.Font("Calisto MT", 1, 12)); // NOI18N
         jmiListadoAxM.setForeground(new java.awt.Color(0, 153, 153));
         jmiListadoAxM.setText("Listado de Alumnos por Materias");
+        jmiListadoAxM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListadoAxMActionPerformed(evt);
+            }
+        });
         jmConsultas.add(jmiListadoAxM);
 
         jMenuBar1.add(jmConsultas);
@@ -151,11 +171,11 @@ public class SeccionAlumno extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio)
+            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
 
         pack();
@@ -187,6 +207,37 @@ public class SeccionAlumno extends javax.swing.JFrame {
         escritorio.add(i);
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiManInscripcionesActionPerformed
+
+    private void jmiFormMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFormMateriasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Materias m = new Materias();
+        m.setVisible(true);
+        escritorio.add(m);
+
+        
+    }//GEN-LAST:event_jmiFormMateriasActionPerformed
+
+    private void jmiManNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiManNotasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        CargaNotas n = new CargaNotas();
+        n.setVisible(true);
+        escritorio.add(n);
+
+    }//GEN-LAST:event_jmiManNotasActionPerformed
+
+    private void jmiListadoAxMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListadoAxMActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        AlumnosMaterias alumXMat = new AlumnosMaterias();
+        alumXMat.setVisible(true);
+        escritorio.add(alumXMat);
+
+    }//GEN-LAST:event_jmiListadoAxMActionPerformed
 
     /**
      * @param args the command line arguments

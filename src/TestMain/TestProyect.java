@@ -28,8 +28,8 @@ public class TestProyect {
 //        
 //     ad.guardarAlumno(alu);
         
-//     Alumno alumna = new Alumno(1,39105927, "Di Gangi","Yamila Belen",LocalDate.of(1996,01,06),true);
-//     ad.actualizaAlumno(alumna); 
+     Alumno alumna = new Alumno(1,39105927, "Di Gangi","Yamila Belen",LocalDate.of(1996,01,06),true);
+     ad.actualizaAlumno(alumna); 
        
     
 //     ad.obtenerAlumnos().forEach(alumno->{
