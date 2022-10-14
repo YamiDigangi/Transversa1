@@ -6,15 +6,25 @@
 
 package Vistas;
 
+import ClasesControladoras.MateriaData;
+import ClasesModelo.Conexion;
+import ClasesModelo.Materia;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author yamic
  */
 public class Materias extends javax.swing.JInternalFrame {
-
+    private MateriaData materiaData;
+    private Connection con;
     /** Creates new form Materia */
     public Materias() {
         initComponents();
+        
+        this.con =Conexion.getConexion();
+        this.materiaData = new MateriaData();
     }
 
     /** This method is called from within the constructor to
@@ -70,22 +80,47 @@ public class Materias extends javax.swing.JInternalFrame {
         jbBuscar.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jbBuscar.setForeground(new java.awt.Color(0, 102, 51));
         jbBuscar.setText("BUSCAR");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jbGuardar.setForeground(new java.awt.Color(0, 102, 51));
         jbGuardar.setText("GUARDAR");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbBorrar.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jbBorrar.setForeground(new java.awt.Color(0, 102, 51));
         jbBorrar.setText("BORRAR");
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
+            }
+        });
 
         jbActualizar.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jbActualizar.setForeground(new java.awt.Color(0, 102, 51));
         jbActualizar.setText("ACUALIZAR");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
 
         jbLimpiar.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jbLimpiar.setForeground(new java.awt.Color(0, 102, 51));
         jbLimpiar.setText("LIMPIAR");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(0, 153, 102));
 
@@ -169,6 +204,66 @@ public class Materias extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        int id= Integer.parseInt(jtfID.getText());
+        Materia mat = materiaData.obtenerMateriaPorId(id);
+        if(mat != null){
+            
+        try {
+        jtfAño.setText(mat.getAño()+"");
+        jtfNombre.setText(mat.getNombre());
+        jchEstado.setSelected(mat.isEstado());
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Ud debe ingresar un numero");
+            jtfID.setText("");
+            jtfID.requestFocus();
+        }
+        }else {
+            JOptionPane.showMessageDialog(this, "Materia no encontra");
+        } 
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        // TODO add your handling code here:
+        jtfID.setText("");
+        jtfAño.setText("");
+        jtfNombre.setText("");
+        jchEstado.setEnabled(false);
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        // TODO add your handling code here:
+        int idMateria = Integer.parseInt(jtfID.getText());
+        materiaData.borrarMateria(idMateria);
+        
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        // TODO add your handling code here:
+        int año=Integer.parseInt(jtfAño.getText());
+        String nombre=jtfNombre.getText();
+        boolean estado =jchEstado.isEnabled();
+        
+        Materia materia = new Materia(nombre,año,estado);
+        materiaData.guardarMateria(materia);
+        jtfID.setText(materia.getIdMateria()+"");
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+        // TODO add your handling code here:
+         if(jtfID.getText() != null){
+            
+         int id=Integer.parseInt(jtfID.getText());
+         int año=Integer.parseInt(jtfAño.getText());
+         String nombre=jtfNombre.getText();
+         boolean estado =jchEstado.isEnabled();
+            
+         Materia materia=new Materia(id,nombre,año,estado);
+         materiaData.actualizaMateria(materia);
+         }
+    }//GEN-LAST:event_jbActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
