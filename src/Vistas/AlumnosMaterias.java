@@ -5,7 +5,14 @@
  */
 package Vistas;
 
+import ClasesControladoras.AlumnoData;
+import ClasesControladoras.CursadaData;
+import ClasesControladoras.MateriaData;
 import ClasesModelo.Alumno;
+import ClasesModelo.Cursada;
+import ClasesModelo.Materia;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +20,70 @@ import ClasesModelo.Alumno;
  */
 public class AlumnosMaterias extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel modelo;
+    private ArrayList<Cursada> listaCursada;
+    private ArrayList<Materia> listaMateria;
+    private ArrayList<Alumno> listaAlumno;
+    private AlumnoData alumD;
+    private CursadaData curD;
+    private MateriaData matD;
     /**
      * Creates new form AlumnosMaterias
      */
     public AlumnosMaterias() {
         initComponents();
+        modelo = new DefaultTableModel();
+        curD = new CursadaData();
+        alumD = new AlumnoData();
+        matD = new MateriaData();
+        listaCursada= curD.obtenerCursadas();
+        listaAlumno = alumD.obtenerAlumnos();
+        listaMateria = matD.obtenerMaterias();
+        cargaAlumnos();
+        armarCabecera();
+        cargarMaterias();
     }
+    
+    public void armarCabecera(){
+        ArrayList<Object> columnas = new ArrayList<>();
+        columnas.add("ID");
+        columnas.add("Nombre");
+        columnas.add("Nota");
+        
+        for(Object it:columnas){
+            modelo.addColumn(it);
+        }
+        jTabla.setModel(modelo);
+    }
+    
+     public void borraFilasTabla(){
+
+       int a =modelo.getRowCount()-1;
+
+       for(int i=a;i>=0;i--){
+   
+       modelo.removeRow(i );
+       }
+    
+     }
+     
+       public void cargaAlumnos(){
+        for (Alumno a: listaAlumno)
+            cbAlumnos.addItem(a);
+       
+       }
+       
+       public void cargarMaterias(){
+        borraFilasTabla();
+        Alumno alumBox = (Alumno)cbAlumnos.getSelectedItem();
+        for (Cursada cur: listaCursada) //recorremos lista de materias Inscripto y lo cargamos en la tabla 
+            if (cur.getAlumno().getIdAlumno() == alumBox.getIdAlumno()){
+            modelo.addRow(new Object[]{cur.getMateria().getIdMateria(),cur.getMateria().getNombre(),cur.getNota()});
+            }
+       }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +114,12 @@ public class AlumnosMaterias extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 153, 153));
         jLabel2.setText("Materia");
+
+        cbAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlumnosActionPerformed(evt);
+            }
+        });
 
         jTabla.setBackground(new java.awt.Color(0, 153, 153));
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -91,9 +162,9 @@ public class AlumnosMaterias extends javax.swing.JInternalFrame {
                         .addGap(57, 57, 57)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
+                        .addGap(68, 68, 68)
                         .addComponent(jLabel2)
-                        .addGap(76, 76, 76)
+                        .addGap(54, 54, 54)
                         .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -113,7 +184,7 @@ public class AlumnosMaterias extends javax.swing.JInternalFrame {
                     .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jbSalir)
                 .addContainerGap())
         );
@@ -123,7 +194,13 @@ public class AlumnosMaterias extends javax.swing.JInternalFrame {
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void cbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlumnosActionPerformed
+        // TODO add your handling code here:
+        cargarMaterias();
+    }//GEN-LAST:event_cbAlumnosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

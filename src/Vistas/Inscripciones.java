@@ -55,6 +55,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
     public void cargaAlumnos(){
         for (Alumno a: listaAlumno)
             jcbAlumnos.addItem(a);
+        
     }
 
     /**
