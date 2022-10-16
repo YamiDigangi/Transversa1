@@ -7,10 +7,8 @@ package Vistas;
 
 import ClasesControladoras.AlumnoData;
 import ClasesControladoras.CursadaData;
-import ClasesControladoras.MateriaData;
 import ClasesModelo.Alumno;
 import ClasesModelo.Cursada;
-import ClasesModelo.Materia;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,11 +20,10 @@ public class AlumnosMaterias extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
     private ArrayList<Cursada> listaCursada;
-    private ArrayList<Materia> listaMateria;
     private ArrayList<Alumno> listaAlumno;
     private AlumnoData alumD;
     private CursadaData curD;
-    private MateriaData matD;
+
     /**
      * Creates new form AlumnosMaterias
      */
@@ -35,10 +32,8 @@ public class AlumnosMaterias extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
         curD = new CursadaData();
         alumD = new AlumnoData();
-        matD = new MateriaData();
         listaCursada= curD.obtenerCursadas();
         listaAlumno = alumD.obtenerAlumnos();
-        listaMateria = matD.obtenerMaterias();
         cargaAlumnos();
         armarCabecera();
         cargarMaterias();

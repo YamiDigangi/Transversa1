@@ -5,7 +5,13 @@
  */
 package Vistas;
 
+import ClasesControladoras.AlumnoData;
+import ClasesControladoras.CursadaData;
 import ClasesModelo.Alumno;
+import ClasesModelo.Cursada;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,13 +19,68 @@ import ClasesModelo.Alumno;
  */
 public class CargaNotas extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel modelo;
+    private ArrayList<Cursada> listaCursada;
+    private ArrayList<Alumno> listaAlumno;
+    private AlumnoData alumD;
+    private CursadaData curD;
     /**
      * Creates new form CargaNotas
      */
     public CargaNotas() {
         initComponents();
+        modelo = new DefaultTableModel();
+        curD = new CursadaData();
+        alumD = new AlumnoData();
+        listaCursada= curD.obtenerCursadas();
+        listaAlumno = alumD.obtenerAlumnos();
+        cargaAlumnos();
+        armarCabecera();
+        cargarMaterias();
     }
+    
+     public void armarCabecera(){
+        ArrayList<Object> columnas = new ArrayList<>();
+        columnas.add("ID");
+        columnas.add("Nombre");
+        columnas.add("Nota");
+        
+        for(Object it:columnas){
+            modelo.addColumn(it);
+        }
+        jTabla.setModel(modelo);
+    }
+     
+      public void limpiarCampos() {
+        cbAlumnos.setSelectedIndex(-1);
+    }
+    
+     public void borraFilasTabla(){
 
+       int a =modelo.getRowCount()-1;
+
+       for(int i=a;i>=0;i--){
+   
+       modelo.removeRow(i );
+       }
+    
+     }
+     
+       public void cargaAlumnos(){
+        for (Alumno a: listaAlumno)
+            cbAlumnos.addItem(a);
+       
+       }
+       
+       public void cargarMaterias(){
+        borraFilasTabla();
+        Alumno alumBox = (Alumno)cbAlumnos.getSelectedItem();
+        for (Cursada cur: listaCursada) //recorremos lista de materias Inscripto y lo cargamos en la tabla 
+            if (cur.getAlumno().getIdAlumno() == alumBox.getIdAlumno()){
+            modelo.addRow(new Object[]{cur.getMateria().getIdMateria(),cur.getMateria().getNombre(),cur.getNota()});
+            }
+       }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,6 +98,8 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jbGuardar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jtfNota = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -66,6 +129,12 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(0, 153, 153));
         jLabel2.setText("ALUMNO");
 
+        cbAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlumnosActionPerformed(evt);
+            }
+        });
+
         jbGuardar.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jbGuardar.setForeground(new java.awt.Color(0, 102, 51));
         jbGuardar.setText("GUARDAR");
@@ -78,33 +147,47 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jbCancelar.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jbCancelar.setForeground(new java.awt.Color(0, 102, 51));
         jbCancelar.setText("CANCELAR");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(0, 153, 102));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel3.setText("INGRESE LA NUEVA NOTA:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(jbGuardar)
-                        .addGap(33, 33, 33)
-                        .addComponent(jbCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel2)
-                        .addGap(77, 77, 77)
-                        .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator1))))
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtfNota, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(34, 34, 34)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(140, 140, 140)
+                            .addComponent(jbGuardar)
+                            .addGap(33, 33, 33)
+                            .addComponent(jbCancelar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(82, 82, 82)
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(47, 47, 47)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator1)))))
                 .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
@@ -113,13 +196,17 @@ public class CargaNotas extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addGap(58, 58, 58)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
                     .addComponent(jbCancelar))
@@ -130,18 +217,41 @@ public class CargaNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+         int filaElegida = jTabla.getSelectedRow();
+        if(filaElegida != -1){
+            Alumno alumBox = (Alumno) cbAlumnos.getSelectedItem();
+            int idMateria =  (Integer) jTabla.getValueAt(filaElegida, 0);
+            double nuevaNota = Double.parseDouble(jtfNota.getText());
+            curD.actualizarNota(alumBox.getIdAlumno(), idMateria, nuevaNota);
+            borraFilasTabla();
+        }else{
+            JOptionPane.showMessageDialog(this, "debe seccionar la fila");
+        }
+        
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void cbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlumnosActionPerformed
+        // TODO add your handling code here:
+        cargarMaterias();
+    }//GEN-LAST:event_cbAlumnosActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Alumno> cbAlumnos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTabla;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbGuardar;
+    private javax.swing.JTextField jtfNota;
     // End of variables declaration//GEN-END:variables
 }
