@@ -1,21 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
+
 
 /**
  *
  * @author yamic
  */
 public class SeccionAlumno extends javax.swing.JFrame {
-
-    /**
-     * Creates new form SeccionAlumno
-     */
+    
+    
+    
+    
+    
     public SeccionAlumno() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
+        
     }
 
     /**
@@ -28,6 +29,8 @@ public class SeccionAlumno extends javax.swing.JFrame {
     private void initComponents() {
 
         escritorio = new javax.swing.JDesktopPane();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmArchivo = new javax.swing.JMenu();
         jmiSalir = new javax.swing.JMenuItem();
@@ -46,22 +49,30 @@ public class SeccionAlumno extends javax.swing.JFrame {
         setTitle("UNIVERSIDAD");
         setBackground(new java.awt.Color(0, 153, 102));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(700, 800));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         escritorio.setBackground(new java.awt.Color(0, 153, 102));
         escritorio.setForeground(new java.awt.Color(51, 255, 204));
+        escritorio.setForeground(new java.awt.Color(51, 255, 204));
         escritorio.setPreferredSize(new java.awt.Dimension(700, 500));
+        escritorio.setPreferredSize(new java.awt.Dimension(700, 500));
+        escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
-        escritorio.setLayout(escritorioLayout);
-        escritorioLayout.setHorizontalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        escritorioLayout.setVerticalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo-ulp.png"))); // NOI18N
+        jLabel3.setLabelFor(this);
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        escritorio.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, -1));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo.png"))); // NOI18N
+        jLabel1.setLabelFor(this);
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        escritorio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 860));
+
+        getContentPane().add(escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 830));
+
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jmArchivo.setForeground(new java.awt.Color(0, 153, 102));
         jmArchivo.setText("Archivo");
@@ -167,17 +178,6 @@ public class SeccionAlumno extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -276,6 +276,8 @@ public class SeccionAlumno extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jmAlumnos;
     private javax.swing.JMenu jmArchivo;
@@ -290,4 +292,6 @@ public class SeccionAlumno extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiManNotas;
     private javax.swing.JMenuItem jmiSalir;
     // End of variables declaration//GEN-END:variables
+    
+
 }

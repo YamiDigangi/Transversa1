@@ -22,15 +22,15 @@ public class TestProyect {
 
  /* CrearAlumno/GuardarAlumno - BorrarAluno - ActualizarAlumnos - ObtenerAlumnos - ObtenerAlumnosPorId */
         
-     AlumnoData ad =new AlumnoData();
+//     AlumnoData ad =new AlumnoData();
     
 //     Alumno alu = new Alumno(15,3323, "Perez","Hector",LocalDate.of(1987,04,12),true);
 //        
 //     ad.guardarAlumno(alu);
         
-     Alumno alumna = new Alumno(1,39105927, "Di Gangi","Yamila Belen",LocalDate.of(1996,01,06),true);
-     ad.actualizaAlumno(alumna); 
-       
+//     Alumno alumna = new Alumno(1,39105927, "Di Gangi","Yamila Belen",LocalDate.of(1996,01,06),true);
+//     ad.actualizaAlumno(alumna); 
+//       
     
 //     ad.obtenerAlumnos().forEach(alumno->{
 //     JOptionPane.showMessageDialog(null, alumno);
@@ -53,10 +53,10 @@ public class TestProyect {
 
  /* CrearMateria/GuardarMateria - BorrarMateria - ActualizarMateria - ObtenerMaterias - ObtenerMateriasPorId */
  
-        MateriaData md=new MateriaData();
-        Materia mat = new Materia(1,"frances",1,true);
-
-        CursadaData cdata=new CursadaData();
+//        MateriaData md=new MateriaData();
+//        Materia mat = new Materia(1,"frances",1,true);
+//
+//        CursadaData cdata=new CursadaData();
 //        
 //        List<Materia> lista=new ArrayList();
 //        
@@ -119,7 +119,7 @@ public class TestProyect {
  /* CrearCursada/GuardarCursada - BorrarCursada - ActualizarCursada - ObtenerCursadas - ObtenerMateriasPorId */
 
 
-       CursadaData cd=new CursadaData();
+//       CursadaData cd=new CursadaData();
 //
 //         
 //       Cursada cursada=new Cursada(ad.obtenerAlumnoPorId(15),mat,8.5);
